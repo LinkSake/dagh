@@ -3894,3 +3894,8 @@ input, select, textarea {
 		width: calc(100% + 4rem);
 		height: 28rem;
 	}
+
+	img.testimony {
+		height: 20em;
+		width: 100%;
+	}
