@@ -2545,7 +2545,7 @@ input, select, textarea {
 			input[type="button"].primary:active,
 			button.primary:active,
 			.button.primary:active {
-				background-color: #FB6656;
+				background-color: #000000; /* !!! */
 			}
 
 		input[type="submit"].disabled, input[type="submit"]:disabled,
@@ -2707,51 +2707,51 @@ input, select, textarea {
 
 			/* https://coolors.co/54fbd4 */
 			.tiles article.style1 > .image:before {
-				background-color: #53A7E7;
+				background-color: #000000;
 			}
 
 			.tiles article.style2 > .image:before {
-				background-color: #53B3E4;
+				background-color: #000000;
 			}
 
 			.tiles article.style3 > .image:before {
-				background-color: #53BFE2;
+				background-color: #000000;
 			}
 
 			.tiles article.style4 > .image:before {
-				background-color: #53CBDF;
+				background-color: #000000;
 			}
 
 			.tiles article.style5 > .image:before {
-				background-color: #54D7DC;
+				background-color: #000000;
 			}
 
 			.tiles article.style6 > .image:before {
-				background-color: #54E3D9;
+				background-color: #000000;
 			}
 
 			.tiles article.style7 > .image:before {
-				background-color: #54EFD7;
+				background-color: #000000;
 			}
 
 			.tiles article.style8 > .image:before {
-				background-color: #54FBD4;
+				background-color: #000000;
 			}
 
 			.tiles article.style9 > .image:before {
-				background-color: #60EFCB;
+				background-color: #000000;
 			}
 
 			.tiles article.style10 > .image:before {
-				background-color: #6CE3C1;
+				background-color: #000000;
 			}
 
 			.tiles article.style11 > .image:before {
-				background-color: #78D7B8;
+				background-color: #000000;
 			}
 
 			.tiles article.style12 > .image:before {
-				background-color: #83CBAF;
+				background-color: #000000;
 			}
 
 			body:not(.is-touch) .tiles article:hover > .image {
@@ -3013,7 +3013,7 @@ input, select, textarea {
 		max-width: 80%;
 		height: 100%;
 		-webkit-overflow-scrolling: touch;
-		background: #54E3D9;
+		background: #000000;
 		color: #ffffff;
 		cursor: default;
 		visibility: hidden;
@@ -3053,6 +3053,11 @@ input, select, textarea {
 						line-height: 1.5;
 						border: 0;
 						color: inherit;
+					}
+
+					#menu > .inner > ul > li a:hover {
+						color: #ffffff !important;
+						font-weight: bold;
 					}
 
 					#menu > .inner > ul > li:first-child {
