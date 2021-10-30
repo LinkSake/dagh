@@ -3357,3 +3357,15 @@ input, select, textarea {
 			}
 
 		}
+
+/* Custom styles */
+
+p.desc {
+	font-size: 1.3em;
+	line-height: 1.5;
+	margin-bottom: 1.5em;
+}
+
+li.price-item {
+	font-size: 1.3em;	
+}
