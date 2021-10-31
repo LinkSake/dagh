@@ -3899,3 +3899,9 @@ input, select, textarea {
 		height: 20em;
 		width: 100%;
 	}
+
+@media (max-width: 450px) {
+	.index-section {
+		margin: 2em !important;
+	}
+}
