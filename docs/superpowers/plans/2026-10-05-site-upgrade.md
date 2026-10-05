@@ -1133,8 +1133,13 @@ p.price-teaser {
 
 ```bash
 grep -c "price-teaser" index.html services.html assets/css/theme.css   # expect matches in all three
-grep -n "pic05.jpg" services.html | grep -v "Bodas\|XV Años\|Cambio de imagen\|Extensiones\|Lifting\|Micropigmentación\|Otros"
-# ^ the 6 real tiles should NOT appear in this output anymore (only commented-out placeholder tiles should)
+grep -c "pic05.jpg" services.html
+# Expect 7: services.html has 13 total <article> tiles (6 built + 7 still
+# commented-out/disabled: Bodas, XV Años, Cambio de imagen, Extensiones,
+# Lifting de pestañas, Micropigmentación, Otros). This task swaps the photo
+# on the 6 built tiles only, so 13 - 6 = 7 pic05.jpg references should remain
+# (all inside the still-disabled, commented-out articles — untouched, per
+# the plan's non-goals).
 ```
 
 - [ ] **Step 5: Commit**
