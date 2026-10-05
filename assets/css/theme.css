@@ -1,0 +1,12 @@
+/*
+	Dagh Salón — brand theme (plain CSS, no build step).
+	Loaded after paradigm.css / phantom.css / fontawesome-all.min.css on every page.
+*/
+
+:root {
+	--color-primary:       #D03D78; /* main brand color */
+	--color-primary-rgb:   208, 61, 120;
+	--color-primary-dark:  #9c2c59; /* hover/active states, dark panels */
+	--color-primary-mid:   #e07aa0; /* secondary hover state */
+	--color-primary-light: #f6d9e6; /* tints: badges, subtle backgrounds */
+}
