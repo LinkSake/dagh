@@ -236,7 +236,7 @@ h1, h2, h3 {
 	font-weight: 700;
 }
 
-p.desc,
+.desc,
 #main .inner > p {
 	max-width: 42em;
 }

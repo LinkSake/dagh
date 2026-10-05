@@ -3360,7 +3360,7 @@ input, select, textarea {
 
 /* Custom styles */
 
-p.desc {
+.desc {
 	font-size: 1.3em;
 	line-height: 1.5;
 	margin-bottom: 1.5em;
