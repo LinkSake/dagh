@@ -221,3 +221,22 @@ p.price-teaser {
 	display: inline-block;
 	margin: 0.5em 0 0 0;
 }
+
+/* --- Contact section emphasis --- */
+
+#wrapper > section > footer,
+footer#footer section {
+	border-top: 2px solid var(--color-primary-light);
+	padding-top: 1.5em;
+}
+
+/* --- Typography polish --- */
+
+h1, h2, h3 {
+	font-weight: 700;
+}
+
+p.desc,
+#main .inner > p {
+	max-width: 42em;
+}
