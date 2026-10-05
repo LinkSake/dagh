@@ -64,7 +64,7 @@ button.primary,
 	input[type="button"].primary:hover,
 	button.primary:hover,
 	.button.primary:hover {
-		background-color: var(--color-primary-mid);
+		background-color: var(--color-primary-dark);
 	}
 
 	input[type="submit"].primary:active,
@@ -247,6 +247,44 @@ a:focus-visible,
 button:focus-visible,
 .button:focus-visible,
 input:focus-visible {
-	outline: 2px solid var(--color-primary-dark);
+	outline: 2px solid #ffffff;
 	outline-offset: 2px;
+	box-shadow: 0 0 0 4px var(--color-primary-dark);
+}
+
+/* --- Fix: offset Phantom's fixed nav below the sticky CTA bar --- */
+
+#header nav {
+	top: calc(2em + 2.8em);
+}
+
+@media screen and (max-width: 736px) {
+
+	#header nav {
+		top: calc(0.5em + 2.8em);
+	}
+
+	#menu > .close {
+		top: calc(0.5em + 2.8em);
+	}
+
+}
+
+/* --- Fix: #D03D78 must be the dominant brand color on index.html too --- */
+
+#wrapper:before {
+	background-color: var(--color-primary);
+}
+
+#wrapper > section > header:before,
+#wrapper > section:last-of-type > header:after {
+	background: var(--color-primary);
+}
+
+@media screen and (max-width: 736px) {
+
+	#wrapper > section > header {
+		background-color: var(--color-primary);
+	}
+
 }

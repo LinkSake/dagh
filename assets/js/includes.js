@@ -42,8 +42,21 @@
 			// Load the page's template script only now that #menu etc. exist.
 				var pageScript = $('body').attr('data-page-script');
 
-				if (pageScript)
-					$.getScript(pageScript);
+				if (pageScript) {
+					$.getScript(pageScript).always(function() {
+
+						// phantom.js's own $window.on('load', ...) handler that
+						// normally removes is-preload may never fire here, since
+						// window `load` can occur before this dynamically-loaded
+						// script finishes (especially with loading="lazy" images
+						// that don't block `load`). Remove the class directly as a
+						// safety net, mirroring phantom.js's own delay.
+						window.setTimeout(function() {
+							$('body').removeClass('is-preload');
+						}, 100);
+
+					});
+				}
 
 			$(document).trigger('includes:loaded');
 
