@@ -10,3 +10,10 @@
 	--color-primary-mid:   #e07aa0; /* secondary hover state */
 	--color-primary-light: #f6d9e6; /* tints: badges, subtle backgrounds */
 }
+
+.price-footnote {
+	display: block;
+	margin-top: 1em;
+	font-size: 0.75em;
+	color: #585858;
+}
