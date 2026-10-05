@@ -165,3 +165,13 @@ body {
 	#sticky-cta a:hover {
 		text-decoration: underline;
 	}
+
+/* --- Hero CTAs (index.html) --- */
+
+.hero-ctas {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	justify-content: center;
+	margin-bottom: 1.5em;
+}
