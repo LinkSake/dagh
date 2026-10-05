@@ -132,3 +132,36 @@ button.primary {
 #menu {
 	background: var(--color-primary-dark);
 }
+
+/* --- Sticky WhatsApp bar --- */
+
+body {
+	padding-top: 2.8em;
+}
+
+#sticky-cta {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10003;
+	background-color: var(--color-primary);
+	text-align: center;
+	padding: 0.5em 1em;
+	padding-top: calc(0.5em + env(safe-area-inset-top, 0px));
+}
+
+	#sticky-cta a {
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.85em;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+
+	#sticky-cta a:hover {
+		text-decoration: underline;
+	}
