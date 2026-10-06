@@ -4,11 +4,12 @@
 */
 
 :root {
-	--color-primary:       #D03D78; /* main brand color */
-	--color-primary-rgb:   208, 61, 120;
-	--color-primary-dark:  #9c2c59; /* hover/active states, dark panels */
-	--color-primary-mid:   #e07aa0; /* secondary hover state */
-	--color-primary-light: #f6d9e6; /* tints: badges, subtle backgrounds */
+	--color-primary:        #D03D78; /* main brand color */
+	--color-primary-rgb:    208, 61, 120;
+	--color-primary-dark:   #9c2c59; /* solid button/bar fills (white text needs this, not the lighter primary) */
+	--color-primary-darker: #7d2347; /* hover/active state for the above — keeps the "gets darker when pressed" feel */
+	--color-primary-mid:    #e07aa0; /* secondary hover state */
+	--color-primary-light:  #f6d9e6; /* tints: badges, subtle backgrounds */
 }
 
 .price-footnote {
@@ -25,8 +26,8 @@ input[type="reset"]:hover,
 input[type="button"]:hover,
 button:hover,
 .button:hover {
-	box-shadow: inset 0 0 0 2px var(--color-primary);
-	color: var(--color-primary) !important;
+	box-shadow: inset 0 0 0 2px var(--color-primary-dark);
+	color: var(--color-primary-dark) !important;
 }
 
 input[type="submit"]:active,
@@ -35,8 +36,8 @@ input[type="button"]:active,
 button:active,
 .button:active {
 	background-color: rgba(var(--color-primary-rgb), 0.18);
-	box-shadow: inset 0 0 0 2px var(--color-primary);
-	color: var(--color-primary) !important;
+	box-shadow: inset 0 0 0 2px var(--color-primary-dark);
+	color: var(--color-primary-dark) !important;
 }
 
 input[type="text"]:focus,
@@ -47,7 +48,7 @@ input[type="search"]:focus,
 input[type="url"]:focus,
 select:focus,
 textarea:focus {
-	border-color: var(--color-primary);
+	border-color: var(--color-primary-dark);
 }
 
 input[type="submit"].primary,
@@ -55,7 +56,9 @@ input[type="reset"].primary,
 input[type="button"].primary,
 button.primary,
 .button.primary {
-	background-color: var(--color-primary);
+	/* --color-primary-dark, not the lighter --color-primary: white button
+	   text needs the darker shade to read clearly (~7:1 vs ~4.5:1 contrast). */
+	background-color: var(--color-primary-dark);
 	color: #ffffff !important;
 }
 
@@ -64,7 +67,7 @@ button.primary,
 	input[type="button"].primary:hover,
 	button.primary:hover,
 	.button.primary:hover {
-		background-color: var(--color-primary-dark);
+		background-color: var(--color-primary-darker);
 	}
 
 	input[type="submit"].primary:active,
@@ -72,7 +75,7 @@ button.primary,
 	input[type="button"].primary:active,
 	button.primary:active,
 	.button.primary:active {
-		background-color: var(--color-primary-dark);
+		background-color: var(--color-primary-darker);
 	}
 
 input[type="checkbox"]:checked + label:before,
@@ -83,7 +86,9 @@ input[type="radio"]:checked + label:before {
 
 #wrapper > section > header h1:before, #wrapper > section > header h2:before,
 #wrapper > section > header h1:after, #wrapper > section > header h2:after {
-	background: var(--color-primary);
+	/* White, not --color-primary: these decorative marks sit on top of the
+	   pink panel added below (#wrapper:before) — pink-on-pink was invisible. */
+	background: #ffffff;
 }
 
 /* --- Phantom (catalog/service pages) accent overrides --- */
@@ -93,8 +98,8 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
 button:hover {
-	color: var(--color-primary) !important;
-	box-shadow: inset 0 0 0 2px var(--color-primary);
+	color: var(--color-primary-dark) !important;
+	box-shadow: inset 0 0 0 2px var(--color-primary-dark);
 }
 
 .button:active,
@@ -110,19 +115,21 @@ input[type="submit"].primary,
 input[type="reset"].primary,
 input[type="button"].primary,
 button.primary {
-	background-color: var(--color-primary);
+	/* --color-primary-dark: this button's text is white, which needs the
+	   darker shade for readable contrast (see Paradigm block above). */
+	background-color: var(--color-primary-dark);
 }
 
 	.button.primary:hover,
 	.button.primary:active,
 	input[type="submit"].primary:hover,
 	input[type="submit"].primary:active {
-		background-color: var(--color-primary-dark);
+		background-color: var(--color-primary-darker);
 	}
 
 .icon.style2:hover {
-	color: var(--color-primary);
-	border-color: var(--color-primary);
+	color: var(--color-primary-dark);
+	border-color: var(--color-primary-dark);
 }
 
 .icon.style2:active {
@@ -133,10 +140,13 @@ button.primary {
 	background: var(--color-primary-dark);
 }
 
-/* --- Sticky WhatsApp bar --- */
+/* --- Sticky WhatsApp bar ---
+   Reserve height (SBAR_H, used below in body padding-top and nav offsets)
+   is an estimate for the two-line promo+CTA content — check against the
+   real height in a browser and adjust all three spots together if it's off. */
 
 body {
-	padding-top: 2.8em;
+	padding-top: 4.5em; /* SBAR_H */
 }
 
 #sticky-cta {
@@ -145,11 +155,26 @@ body {
 	left: 0;
 	width: 100%;
 	z-index: 10003;
-	background-color: var(--color-primary);
+	/* --color-primary-dark, not the lighter --color-primary: both lines of
+	   text in this bar are white, which needs the darker shade to read
+	   clearly (~7:1 vs ~4.5:1 contrast — see the Paradigm block above). */
+	background-color: var(--color-primary-dark);
 	text-align: center;
 	padding: 0.5em 1em;
 	padding-top: calc(0.5em + env(safe-area-inset-top, 0px));
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25em;
 }
+
+	#sticky-cta .promo {
+		margin: 0;
+		font-size: 0.72em;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: #ffffff;
+	}
 
 	#sticky-cta a {
 		color: #ffffff;
@@ -201,11 +226,11 @@ ul.service-teasers {
 
 	ul.service-teasers li a:hover {
 		background-color: var(--color-primary-light);
-		border-color: var(--color-primary);
+		border-color: var(--color-primary-dark);
 	}
 
 	ul.service-teasers li a .icon:before {
-		color: var(--color-primary);
+		color: var(--color-primary-dark);
 	}
 
 .price-teaser {
@@ -252,20 +277,22 @@ input:focus-visible {
 	box-shadow: 0 0 0 4px var(--color-primary-dark);
 }
 
-/* --- Fix: offset Phantom's fixed nav below the sticky CTA bar --- */
+/* --- Fix: offset Phantom's fixed nav below the sticky CTA bar ---
+   Uses the same SBAR_H estimate as body's padding-top above — update both
+   together if the real bar height (now two lines) turns out different. */
 
 #header nav {
-	top: calc(2em + 2.8em);
+	top: calc(2em + 4.5em); /* SBAR_H */
 }
 
 @media screen and (max-width: 736px) {
 
 	#header nav {
-		top: calc(0.5em + 2.8em);
+		top: calc(0.5em + 4.5em); /* SBAR_H */
 	}
 
 	#menu > .close {
-		top: calc(0.5em + 2.8em);
+		top: calc(0.5em + 4.5em); /* SBAR_H */
 	}
 
 }
@@ -278,10 +305,12 @@ input:focus-visible {
 
 #wrapper > section > header:before,
 #wrapper > section:last-of-type > header:after {
-	background: var(--color-primary);
+	/* White, not --color-primary: same pink-on-pink collision as the h1/h2
+	   dot+line above — this 2px rule sits on the #wrapper:before panel. */
+	background: #ffffff;
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 1152px) {
 
 	#wrapper > section > header {
 		background-color: var(--color-primary);
