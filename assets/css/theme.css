@@ -306,14 +306,33 @@ input:focus-visible {
 
 #wrapper:before {
 	background-color: var(--color-primary);
+	/* The vendor pattern baked into this background-image is a decorative
+	   squiggle texture tinted teal (rgba(67,217,184,.25)) — not a DOM
+	   element, so it can't be recolored via a simple selector override.
+	   Drop it rather than leave the old brand color showing through. */
+	background-image: none;
 }
 
-/* --- Fix: white text/lines on the pink panel, not vendor black/gray --- */
+/* --- Fix: white text/lines on the pink panel, not vendor black/gray ---
+   Both <header> AND <footer> of a section share this grid column (see
+   paradigm.css's grid-area: header / grid-area: footer) — the contact
+   section's footer (phone/address/social links) sits on the same panel
+   as every section's heading, so it needs the same treatment. */
 
 #wrapper > section > header h1,
 #wrapper > section > header h2,
-#wrapper > section > header p {
+#wrapper > section > header p,
+#wrapper > section > footer h3,
+#wrapper > section > footer a,
+#wrapper > section > footer span,
+#wrapper > section > footer li {
 	color: #ffffff;
+}
+
+#wrapper > section > footer {
+	/* The light-pink border below (from "Contact section emphasis") reads
+	   fine on a white background but is barely visible on this panel. */
+	border-top-color: #ffffff;
 }
 
 	/* The one plain (non-primary) button that lives in this panel — "Ver
