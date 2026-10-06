@@ -1,8 +1,15 @@
 /*
 	Dagh Salón — plain-jQuery include loader.
-	Finds every [data-include] element, fetches the partial at its root-relative
-	path, and swaps it in. phantom.js reads #menu at parse time, so it must be
-	loaded (via $.getScript, from <body data-page-script="...">) only after every
+	Finds every [data-include] element, fetches the partial at its own
+	page-relative path (set per page, since this site may be hosted at a
+	subpath — e.g. GitHub Pages project sites — so root-absolute paths
+	aren't safe to assume), and swaps it in. A shared partial that itself
+	links to other top-level pages (currently just menu.html) can't hardcode
+	one relative prefix that works from every including page's depth, so it
+	uses a {{root}} placeholder instead; this resolves it using the
+	including page's own <body data-root="..."> value before injecting.
+	phantom.js reads #menu at parse time, so it must be loaded (via
+	$.getScript, from <body data-page-script="...">) only after every
 	include has landed in the DOM.
 */
 (function($) {
@@ -10,6 +17,7 @@
 	function loadIncludes(callback) {
 
 		var $targets = $('[data-include]'),
+			root = $('body').attr('data-root') || '',
 			requests = [];
 
 		$targets.each(function() {
@@ -19,7 +27,7 @@
 
 			requests.push(
 				$.get(path).done(function(html) {
-					$target.replaceWith(html);
+					$target.replaceWith(html.split('{{root}}').join(root));
 				})
 			);
 

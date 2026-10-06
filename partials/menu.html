@@ -1,8 +1,13 @@
+<!-- Links here use a {{root}} placeholder instead of a real path: this
+     partial is shared by pages at different folder depths (site root and
+     one level down, e.g. services/), so it can't hardcode one relative
+     prefix that works for both. includes.js replaces {{root}} with the
+     including page's own data-root value before injecting this content. -->
 <nav id="menu">
 	<h2>Menu</h2>
 	<ul>
-		<li><a href="/index.html">Inicio</a></li>
-		<li><a href="/products.html">Productos</a></li>
-		<li><a href="/services.html">Servicios</a></li>
+		<li><a href="{{root}}index.html">Inicio</a></li>
+		<li><a href="{{root}}products.html">Productos</a></li>
+		<li><a href="{{root}}services.html">Servicios</a></li>
 	</ul>
 </nav>

@@ -1,6 +1,8 @@
 # Dagh Salón website
 
-Static marketing site for **Dagh Salón** (by Gisela Ortíz), a hair & beauty salon in Chihuahua, Mexico (est. 2012). Live at https://dagh.salon/. All site copy is in Spanish — keep it that way when editing content.
+Static marketing site for **Dagh Salón** (by Gisela Ortíz), a hair & beauty salon in Chihuahua, Mexico (est. 2012). All site copy is in Spanish — keep it that way when editing content.
+
+**Hosting:** deployed via GitHub Pages from the `main` branch, currently served at `https://linksake.github.io/dagh/` — a *project-site subpath*, not a domain root. The custom domain `dagh.salon` appears throughout the site's metadata (OG tags, `sitemap.xml`, `robots.txt`) as the intended eventual production URL, but it is **not** currently wired up (no `CNAME` file in the repo, no DNS records for `dagh.salon` as of 2026-10). Don't assume the site is reachable at `dagh.salon` without checking `gh api repos/LinkSake/dagh/pages` first.
 
 ## Tech stack
 
@@ -21,7 +23,7 @@ python3 -m http.server 8000   # then open http://localhost:8000/
 npx serve .
 ```
 
-A local HTTP server is now **required** — opening `index.html` (or any page) directly via `file://` no longer works at all. Both the root-relative (`/...`) asset/page paths and the `$.get()` partial fetches in `assets/js/includes.js` fail under `file://`.
+A local HTTP server is still **required** — opening `index.html` (or any page) directly via `file://` doesn't work. Browsers block the `$.get()` partial fetches in `assets/js/includes.js` under the `file://` protocol regardless of relative/absolute paths, so the shared header/nav/footer/sticky-bar never load.
 
 ## Directory / page map
 
@@ -33,16 +35,18 @@ A local HTTP server is now **required** — opening `index.html` (or any page) d
 - `images/pic01-15.jpg` + `images/gallery/` — legacy HTML5-UP stock photos (unfinished placeholders, not real salon photos). `images/services/*.jpeg` — real salon photos, one per service.
 - `public/` — favicons + `site.webmanifest`.
 
-## Critical convention: shared chrome is loaded at runtime via includes, every path is root-relative
+## Critical convention: shared chrome is loaded at runtime via includes, every path is page-relative
 
 There **is** now an includes/partials system, hand-rolled in plain jQuery (no templating engine, no build step):
 
-- Every `services/*.html` page, `products/generic.html`, and `services.html`/`products.html` mounts shared chrome (header, nav/slide-out menu, footer, sticky WhatsApp bar, etc.) via `<div data-include="/partials/header.html"></div>`-style placeholder elements.
-- `assets/js/includes.js` finds every `[data-include]` element on `$(document).ready`, fetches each partial's root-relative path with plain jQuery `$.get()`, and swaps it in with `.replaceWith()`.
+- Every `services/*.html` page, `products/generic.html`, and `services.html`/`products.html` mounts shared chrome (header, nav/slide-out menu, footer, sticky WhatsApp bar, etc.) via `<div data-include="partials/header.html"></div>`-style placeholder elements.
+- `assets/js/includes.js` finds every `[data-include]` element on `$(document).ready`, fetches each partial with plain jQuery `$.get()`, and swaps it in with `.replaceWith()`.
 - `<body data-back="...">` controls the back-arrow link target, and `<body data-page-script="...">` names the page's Phantom template script (`phantom.js` etc.); `includes.js` defers loading that script via `$.getScript()` until *after* all partials have landed in the DOM (because `phantom.js` reads `#menu` at parse time).
 - `index.html` is the one exception: it keeps its own unique Paradigm-template markup inline and only mounts the shared `partials/sticky-whatsapp.html` — it does not use the header/nav/footer partials.
 
-**Hard site-wide rule:** every asset and page reference (CSS/JS `src`/`href`, `<a>` links, image paths, partial paths) now uses a **root-relative absolute path** (leading `/`), not a relative path — this applies everywhere, not just on sub-pages. This is what makes the shared partials work identically regardless of how deep the including page is nested (e.g. `services/haircut.html` vs `services.html`).
+**Hard site-wide rule: every asset/page reference is page-relative** (`assets/css/theme.css`, `../assets/css/theme.css`, etc.), **never root-absolute** (no leading `/`). This was flipped from root-absolute back to relative in 2026-10 after discovering GitHub Pages serves this repo from a subpath (`/dagh/`, see Hosting above) — a leading `/` resolves against the *site origin*, not the subpath, so every asset 404s. Relative paths resolve correctly regardless of subpath, custom domain, or local server, which is why they're required everywhere now.
+
+**The one wrinkle this creates:** `partials/menu.html` is shared by pages at *different folder depths* (site root and one level down, e.g. `services/`), so a single relative prefix in that file can't be correct for every including page. It uses a `{{root}}` placeholder instead (e.g. `href="{{root}}index.html"`); every page declares its own `<body data-root="./">` (root-level pages) or `<body data-root="../">` (one-level-deep pages), and `includes.js` substitutes `{{root}}` with that value before injecting the partial. If you add a new shared partial that links to other top-level pages, follow this same `{{root}}` pattern — don't hardcode a relative prefix into a partial that's included from more than one folder depth.
 
 **Implication:** a sitewide chrome change (nav links, footer credit, sticky bar) now only needs editing in the relevant `partials/*.html` file. A sitewide *content* change that isn't chrome (phone number, WhatsApp link appearing in page body copy) may still need hand-editing across files — grep across `.html` files rather than assuming one file controls it.
 
@@ -98,4 +102,4 @@ Whenever a new real (non-placeholder) page is added, remember to add a correspon
 
 ## Footer / attribution
 
-Every page footer credits "Web: Luis Angel Ortega" (https://luisangel.me/) and "Diseño: HTML5 UP". Preserve this when touching footers.
+Every page footer credits "Web: Luis Angel Ortega" (https://luisangel.me/). The "Diseño: HTML5 UP" credit and the email contact link were both deliberately removed in 2026-10 — don't re-add them.
