@@ -1,0 +1,290 @@
+/*
+	Dagh Salón — brand theme (plain CSS, no build step).
+	Loaded after paradigm.css / phantom.css / fontawesome-all.min.css on every page.
+*/
+
+:root {
+	--color-primary:       #D03D78; /* main brand color */
+	--color-primary-rgb:   208, 61, 120;
+	--color-primary-dark:  #9c2c59; /* hover/active states, dark panels */
+	--color-primary-mid:   #e07aa0; /* secondary hover state */
+	--color-primary-light: #f6d9e6; /* tints: badges, subtle backgrounds */
+}
+
+.price-footnote {
+	display: block;
+	margin-top: 1em;
+	font-size: 0.75em;
+	color: #585858;
+}
+
+/* --- Paradigm (index.html) accent overrides --- */
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+button:hover,
+.button:hover {
+	box-shadow: inset 0 0 0 2px var(--color-primary);
+	color: var(--color-primary) !important;
+}
+
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active,
+button:active,
+.button:active {
+	background-color: rgba(var(--color-primary-rgb), 0.18);
+	box-shadow: inset 0 0 0 2px var(--color-primary);
+	color: var(--color-primary) !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+select:focus,
+textarea:focus {
+	border-color: var(--color-primary);
+}
+
+input[type="submit"].primary,
+input[type="reset"].primary,
+input[type="button"].primary,
+button.primary,
+.button.primary {
+	background-color: var(--color-primary);
+	color: #ffffff !important;
+}
+
+	input[type="submit"].primary:hover,
+	input[type="reset"].primary:hover,
+	input[type="button"].primary:hover,
+	button.primary:hover,
+	.button.primary:hover {
+		background-color: var(--color-primary-dark);
+	}
+
+	input[type="submit"].primary:active,
+	input[type="reset"].primary:active,
+	input[type="button"].primary:active,
+	button.primary:active,
+	.button.primary:active {
+		background-color: var(--color-primary-dark);
+	}
+
+input[type="checkbox"]:checked + label:before,
+input[type="radio"]:checked + label:before {
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
+}
+
+#wrapper > section > header h1:before, #wrapper > section > header h2:before,
+#wrapper > section > header h1:after, #wrapper > section > header h2:after {
+	background: var(--color-primary);
+}
+
+/* --- Phantom (catalog/service pages) accent overrides --- */
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+button:hover {
+	color: var(--color-primary) !important;
+	box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+.button:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active,
+button:active {
+	background-color: rgba(var(--color-primary-rgb), 0.12);
+}
+
+.button.primary,
+input[type="submit"].primary,
+input[type="reset"].primary,
+input[type="button"].primary,
+button.primary {
+	background-color: var(--color-primary);
+}
+
+	.button.primary:hover,
+	.button.primary:active,
+	input[type="submit"].primary:hover,
+	input[type="submit"].primary:active {
+		background-color: var(--color-primary-dark);
+	}
+
+.icon.style2:hover {
+	color: var(--color-primary);
+	border-color: var(--color-primary);
+}
+
+.icon.style2:active {
+	background-color: rgba(var(--color-primary-rgb), 0.15);
+}
+
+#menu {
+	background: var(--color-primary-dark);
+}
+
+/* --- Sticky WhatsApp bar --- */
+
+body {
+	padding-top: 2.8em;
+}
+
+#sticky-cta {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10003;
+	background-color: var(--color-primary);
+	text-align: center;
+	padding: 0.5em 1em;
+	padding-top: calc(0.5em + env(safe-area-inset-top, 0px));
+}
+
+	#sticky-cta a {
+		color: #ffffff;
+		text-decoration: none;
+		font-size: 0.85em;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+
+	#sticky-cta a:hover {
+		text-decoration: underline;
+	}
+
+/* --- Hero CTAs (index.html) --- */
+
+.hero-ctas {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	justify-content: center;
+	margin-bottom: 1.5em;
+}
+
+/* --- Service price teasers --- */
+
+ul.service-teasers {
+	list-style: none;
+	margin: 0 0 1.5em 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75em;
+}
+
+	ul.service-teasers li a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.6em 1em;
+		border: solid 1px var(--color-primary-light);
+		border-radius: 2em;
+		color: inherit;
+		text-decoration: none;
+		transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	}
+
+	ul.service-teasers li a:hover {
+		background-color: var(--color-primary-light);
+		border-color: var(--color-primary);
+	}
+
+	ul.service-teasers li a .icon:before {
+		color: var(--color-primary);
+	}
+
+.price-teaser {
+	font-size: 0.8em;
+	font-weight: 600;
+	color: var(--color-primary-dark);
+	background-color: var(--color-primary-light);
+	border-radius: 1em;
+	padding: 0.15em 0.75em;
+}
+
+p.price-teaser {
+	display: inline-block;
+	margin: 0.5em 0 0 0;
+}
+
+/* --- Contact section emphasis --- */
+
+#wrapper > section > footer,
+footer#footer section {
+	border-top: 2px solid var(--color-primary-light);
+	padding-top: 1.5em;
+}
+
+/* --- Typography polish --- */
+
+h1, h2, h3 {
+	font-weight: 700;
+}
+
+.desc,
+#main .inner > p {
+	max-width: 42em;
+}
+
+/* --- Accessibility: visible focus states --- */
+
+a:focus-visible,
+button:focus-visible,
+.button:focus-visible,
+input:focus-visible {
+	outline: 2px solid #ffffff;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 4px var(--color-primary-dark);
+}
+
+/* --- Fix: offset Phantom's fixed nav below the sticky CTA bar --- */
+
+#header nav {
+	top: calc(2em + 2.8em);
+}
+
+@media screen and (max-width: 736px) {
+
+	#header nav {
+		top: calc(0.5em + 2.8em);
+	}
+
+	#menu > .close {
+		top: calc(0.5em + 2.8em);
+	}
+
+}
+
+/* --- Fix: #D03D78 must be the dominant brand color on index.html too --- */
+
+#wrapper:before {
+	background-color: var(--color-primary);
+}
+
+#wrapper > section > header:before,
+#wrapper > section:last-of-type > header:after {
+	background: var(--color-primary);
+}
+
+@media screen and (max-width: 736px) {
+
+	#wrapper > section > header {
+		background-color: var(--color-primary);
+	}
+
+}
