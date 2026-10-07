@@ -71,21 +71,12 @@ Used identically across every `services/*.html` detail page — follow this exac
 
 ## Commit message convention
 
-This repo uses gitmoji-style commit prefixes consistently. Follow this convention for new commits:
+This repo used gitmoji-style commit prefixes through 2026-10, then switched to a simplified two-type conventional-commit style (entire history was rewritten to match — see git log). Follow this convention for new commits:
 
-| Emoji | Meaning |
+| Prefix | Meaning |
 |---|---|
-| 🎉 | Initial commit |
-| ✨ | New feature |
-| 🚧 | New page / work in progress |
-| 🐛 | Bug fix |
-| 💄 | Style / UI tweak |
-| 🔥 | Removal |
-| ✏️ | Copy / content edit |
-| 🍱 | Asset addition |
-| 🙈 | gitignore change |
-| 🚀 | Release |
-| ♿ | Accessibility fix |
+| `fix:` | Bug fix |
+| `chore:` | Everything else (features, pages, style, copy, assets, removals, releases, etc.) |
 
 Single author, single branch (`main`), no PR workflow, no `.github` folder — don't propose a branching/PR process unless asked.
 
