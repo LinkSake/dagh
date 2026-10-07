@@ -206,6 +206,40 @@ body {
 		text-decoration: underline;
 	}
 
+/* --- Hero logo (index.html) --- */
+
+/* paradigm.css pins every direct child of the intro header to a fixed
+   width via #wrapper > section.intro > header > * (20rem desktop, 21rem
+   <=1280px, 100% <=1152px) — sized for the original h1 text measure.
+   That rule's #wrapper id outranks a plain .hero-logo class, so it was
+   silently capping the wrapper (and therefore the img inside it, via
+   its own max-width: 100%) regardless of what width we gave the image.
+   Match the same selector path so this wins at every breakpoint, and
+   let the image carry the actual responsive size instead. */
+#wrapper > section.intro > header > .hero-logo {
+	width: 100%;
+}
+
+.hero-logo {
+	margin: 0 0 1.5em;
+}
+
+	.hero-logo img {
+		width: 42rem;
+		max-width: 100%;
+		height: auto;
+	}
+
+	@media screen and (max-width: 736px) {
+
+		.hero-logo img {
+			width: 28rem;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+	}
+
 /* --- Hero CTAs (index.html) --- */
 
 .hero-ctas {
