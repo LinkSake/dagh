@@ -128,8 +128,10 @@ button.primary {
 	}
 
 .icon.style2 {
-	/* Was a plain vendor gray (#c9c9c9) — tint it to match the brand palette. */
-	border-color: var(--color-primary-light);
+	/* Was a plain vendor gray (#c9c9c9). The lightest tint (--color-primary-light)
+	   read as gray rather than pink at this thin 1px weight, so use the
+	   more saturated mid shade instead — visibly on-brand, not washed out. */
+	border-color: var(--color-primary-mid);
 }
 
 .icon.style2:hover {
@@ -146,12 +148,13 @@ button.primary {
 }
 
 /* --- Sticky WhatsApp bar ---
-   Reserve height (SBAR_H, used below in body padding-top and nav offsets)
-   is an estimate for the two-line promo+CTA content — check against the
-   real height in a browser and adjust all three spots together if it's off. */
+   --sbar-h is the bar's real measured height, set by assets/js/includes.js
+   (syncStickyBarHeight) once the bar exists and again on resize/load —
+   it's always accurate, no hand-tuning needed. The 8em fallback only
+   matters for the brief instant before that JS runs, or if it's disabled. */
 
 body {
-	padding-top: 8em; /* SBAR_H */
+	padding-top: var(--sbar-h, 8em);
 }
 
 #sticky-cta {
@@ -290,21 +293,21 @@ input:focus-visible {
 }
 
 /* --- Fix: offset Phantom's fixed nav below the sticky CTA bar ---
-   Uses the same SBAR_H estimate as body's padding-top above — update both
-   together if the real bar height (now two lines) turns out different. */
+   Same --sbar-h custom property as body's padding-top above — see that
+   comment. Always in sync automatically, nothing to hand-tune here. */
 
 #header nav {
-	top: calc(2em + 8em); /* SBAR_H */
+	top: calc(2em + var(--sbar-h, 8em));
 }
 
 @media screen and (max-width: 736px) {
 
 	#header nav {
-		top: calc(0.5em + 8em); /* SBAR_H */
+		top: calc(0.5em + var(--sbar-h, 8em));
 	}
 
 	#menu > .close {
-		top: calc(0.5em + 8em); /* SBAR_H */
+		top: calc(0.5em + var(--sbar-h, 8em));
 	}
 
 }
@@ -321,25 +324,36 @@ input:focus-visible {
 }
 
 /* --- Fix: white text/lines on the pink panel, not vendor black/gray ---
-   Both <header> AND <footer> of a section share this grid column (see
-   paradigm.css's grid-area: header / grid-area: footer) — the contact
-   section's footer (phone/address/social links) sits on the same panel
-   as every section's heading, so it needs the same treatment. */
+   <header> gets a pink background at every width — the panel on desktop
+   (#wrapper:before below), and an explicit mobile background further
+   down (paradigm.css hides the panel entirely at <=1152px, so header
+   re-paints its own background there) — so white text is always correct
+   on it. */
 
 #wrapper > section > header h1,
 #wrapper > section > header h2,
-#wrapper > section > header p,
-#wrapper > section > footer h3,
-#wrapper > section > footer a,
-#wrapper > section > footer span,
-#wrapper > section > footer li {
+#wrapper > section > header p {
 	color: #ffffff;
 }
 
-#wrapper > section > footer {
-	/* The light-pink border below (from "Contact section emphasis") reads
-	   fine on a white background but is barely visible on this panel. */
-	border-top-color: #ffffff;
+/* <footer> (phone/address/social — grid-area: footer, same column as
+   header per paradigm.css) never gets that mobile background re-paint,
+   only the real panel — so it's pink-backed on desktop but plain on
+   mobile. White text there was invisible on mobile; scope it to desktop
+   only and let mobile fall back to the default dark text. */
+@media screen and (min-width: 1153px) {
+
+	#wrapper > section > footer h3,
+	#wrapper > section > footer a,
+	#wrapper > section > footer span,
+	#wrapper > section > footer li {
+		color: #ffffff;
+	}
+
+	#wrapper > section > footer {
+		border-top-color: #ffffff;
+	}
+
 }
 
 	/* The one plain (non-primary) button that lives in this panel — "Ver
@@ -372,4 +386,24 @@ input:focus-visible {
 		background-color: var(--color-primary);
 	}
 
+}
+
+/* --- Fix: recolor baked-in SVG icons (vendor gray/black -> brand) ---
+   These are CSS background-image data-URIs, not real DOM elements, so a
+   plain color: override can't touch them — the fix is a full property
+   override with the same SVG, just the embedded fill/stroke hex swapped. */
+
+#header nav ul li a[href="#menu"]:after {
+	/* Resting (closed) hamburger icon — was vendor gray #585858. Phantom's
+	   #header has a plain/white background at every width, so one fixed
+	   color works everywhere, no breakpoint needed. */
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 8px%3B stroke: %239c2c59%3B %7D%3C/style%3E%3Cline x1='0' y1='25' x2='100' y2='25' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' /%3E%3Cline x1='0' y1='75' x2='100' y2='75' /%3E%3C/svg%3E");
+}
+
+a.arrow:before {
+	/* "Next" scroll-down arrow on the homepage hero — was vendor black.
+	   Its <header> always has a pink background (the panel on desktop,
+	   an explicit repaint on mobile — see below), so white reads clearly
+	   at every width, same as the surrounding heading text. */
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 512 512'%3E%3Cpath d='M442.53,346.28L293.65,495.16c-0.33,0.33-0.7,0.62-1.05,0.94c-9.16,9.77-22.15,15.9-36.6,15.9 c-14.44,0-27.43-6.13-36.59-15.88c-0.35-0.33-0.72-0.62-1.06-0.96L69.47,346.28c-19.62-19.62-19.62-51.44,0-71.05 c19.62-19.62,51.43-19.62,71.06,0l65.23,65.23V50.24C205.76,22.5,228.25,0,256,0s50.24,22.5,50.24,50.24v290.21l65.23-65.23 c19.62-19.62,51.43-19.62,71.05,0C462.15,294.84,462.15,326.66,442.53,346.28z' fill='%23ffffff' /%3E%3C/svg%3E");
 }

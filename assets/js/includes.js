@@ -37,6 +37,22 @@
 
 	}
 
+	// The sticky WhatsApp bar's real height varies (promo text length/
+	// wrapping changes over time, viewport width, font rendering) and
+	// several other rules (body's top padding, the fixed nav's offset)
+	// need to reserve exactly that much space below it. Rather than
+	// hand-guessing a fixed em value and re-tuning it by hand every time
+	// the bar's content changes, measure it for real and publish it as a
+	// CSS custom property everything else reads from.
+	function syncStickyBarHeight() {
+
+		var $bar = $('#sticky-cta');
+
+		if ($bar.length)
+			document.documentElement.style.setProperty('--sbar-h', $bar.outerHeight() + 'px');
+
+	}
+
 	$(document).ready(function() {
 
 		loadIncludes(function() {
@@ -66,10 +82,23 @@
 					});
 				}
 
+			syncStickyBarHeight();
+
 			$(document).trigger('includes:loaded');
 
 		});
 
+	});
+
+	// Re-measure on resize (debounced) and once more on window `load`,
+	// since web fonts finishing can reflow the bar's text after the
+	// first measurement. $(window).on('load', ...) fires immediately if
+	// load has already happened by the time this runs.
+	var sbarResizeTimer;
+
+	$(window).on('load resize', function() {
+		window.clearTimeout(sbarResizeTimer);
+		sbarResizeTimer = window.setTimeout(syncStickyBarHeight, 150);
 	});
 
 })(jQuery);
