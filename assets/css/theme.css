@@ -151,7 +151,7 @@ button.primary {
    real height in a browser and adjust all three spots together if it's off. */
 
 body {
-	padding-top: 6em; /* SBAR_H */
+	padding-top: 8em; /* SBAR_H */
 }
 
 #sticky-cta {
@@ -175,10 +175,11 @@ body {
 
 	#sticky-cta .promo {
 		margin: 0;
-		max-width: 32em;
-		font-size: 0.72em;
+		max-width: 90%; /* %, not em — stays predictable regardless of font-size */
+		font-size: 1em;
 		font-weight: 700;
 		letter-spacing: 0.02em;
+		line-height: 1.3;
 		color: #ffffff;
 	}
 
@@ -293,17 +294,17 @@ input:focus-visible {
    together if the real bar height (now two lines) turns out different. */
 
 #header nav {
-	top: calc(2em + 6em); /* SBAR_H */
+	top: calc(2em + 8em); /* SBAR_H */
 }
 
 @media screen and (max-width: 736px) {
 
 	#header nav {
-		top: calc(0.5em + 6em); /* SBAR_H */
+		top: calc(0.5em + 8em); /* SBAR_H */
 	}
 
 	#menu > .close {
-		top: calc(0.5em + 6em); /* SBAR_H */
+		top: calc(0.5em + 8em); /* SBAR_H */
 	}
 
 }
