@@ -384,6 +384,12 @@ input:focus-visible {
 
 	#wrapper > section > header {
 		background-color: var(--color-primary);
+		/* paradigm.css's own mobile header rule sets background-color AND a
+		   separate background-image (the same decorative crystalline pattern
+		   as the desktop panel, teal-tinted) — overriding color alone left
+		   the old teal pattern showing on top of the new pink. Drop it,
+		   same fix as #wrapper:before above. */
+		background-image: none;
 	}
 
 }
