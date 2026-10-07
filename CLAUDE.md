@@ -102,4 +102,4 @@ Whenever a new real (non-placeholder) page is added, remember to add a correspon
 
 ## Footer / attribution
 
-Every page footer credits "Web: Luis Angel Ortega" (https://luisangel.me/). The "Diseño: HTML5 UP" credit and the email contact link were both deliberately removed in 2026-10 — don't re-add them.
+Every page footer reads "Dagh Salón © Luis Angel Ortega" (name links to https://luisangel.me/). The "Diseño: HTML5 UP" credit, the "Todos los derechos reservados" line, and the email contact link were all deliberately removed in 2026-10 — don't re-add them.
