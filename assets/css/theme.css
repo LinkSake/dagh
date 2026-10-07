@@ -216,6 +216,20 @@ body {
 	margin-bottom: 1.5em;
 }
 
+	/* paradigm.css hides every ul.actions in the intro header at <=1152px
+	   (its own "Next" scroll-arrow button, since scrolling is natural on
+	   mobile) — .hero-ctas reuses that same ul.actions class, so it was
+	   getting hidden too as collateral damage. Force it back on; the
+	   scroll arrow (plain ul.actions, no .hero-ctas) stays hidden as the
+	   template intended. */
+	@media screen and (max-width: 1152px) {
+
+		#wrapper > section.intro > header ul.actions.hero-ctas {
+			display: flex;
+		}
+
+	}
+
 /* --- Service price teasers --- */
 
 ul.service-teasers {
