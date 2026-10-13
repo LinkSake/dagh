@@ -264,6 +264,68 @@ body {
 
 	}
 
+/* --- Hero on mobile/tablet (index.html) ---
+   At <=1152px paradigm.css stacks the hero: pink header, then the photo.
+   Two problems there:
+   - paradigm.css gives the photo box (.content) no real height here (its
+     100vh only applies to the desktop two-column layout); it's just
+     padding around an absolutely-positioned .image.fill, so the photo got
+     squashed. Give it a real height.
+   - dagh-logo.png is a square with lots of empty space above/below the
+     wordmark, which made the pink header ~700px tall. Crop the logo to
+     its middle band and trim the header padding.
+   Also paradigm.css sets grid-template-rows: 3fr on every section, which
+   makes the header row soak up spare height; size rows to content. */
+@media screen and (max-width: 1152px) {
+
+	#wrapper > section.intro {
+		grid-template-rows: auto auto auto;
+	}
+
+	#wrapper > section.intro > header {
+		padding-top: 5rem;
+		padding-bottom: 2.5rem;
+	}
+
+	.hero-logo img {
+		height: auto;
+		aspect-ratio: 2 / 1;
+		object-fit: cover;
+	}
+
+	/* The photo is a portrait, so never crop it: take it out of the
+	   template's absolute "fill" mode and let it keep its own proportions
+	   as a normal in-flow image. When the screen is wider than the photo
+	   (tablet, landscape phone) the box is brand pink, so the leftover
+	   space reads as pink columns on either side. */
+	#wrapper > section.intro > .content {
+		background-color: var(--color-primary);
+		height: auto;
+		min-height: 0;
+		padding: 0;
+		text-align: center;
+	}
+
+	#wrapper > section.intro > .content > .image.fill {
+		display: inline-block;
+		height: auto;
+		max-width: 100%;
+		position: relative;
+		width: auto;
+	}
+
+	#wrapper > section.intro > .content > .image.fill img {
+		display: block;
+		height: auto;
+		max-height: 85vh;
+		max-width: 100%;
+		object-fit: contain;
+		position: static;
+		width: auto;
+	}
+
+}
+
 /* --- Service price teasers --- */
 
 ul.service-teasers {
