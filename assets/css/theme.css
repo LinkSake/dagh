@@ -176,21 +176,6 @@ body {
 	gap: 0.25em;
 }
 
-	#sticky-cta .promo {
-		margin: 0;
-		max-width: 90%; /* %, not em — stays predictable regardless of font-size */
-		font-size: 1em;
-		font-weight: 700;
-		letter-spacing: 0.02em;
-		line-height: 1.3;
-		color: #ffffff;
-	}
-
-		#sticky-cta .promo .icon:before {
-			margin-right: 0.35em;
-			color: #ffffff;
-		}
-
 	#sticky-cta a {
 		color: #ffffff;
 		text-decoration: none;
